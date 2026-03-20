@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO Audit Quiz — Sprints & Sneakers</title>
+<meta name="description" content="Find out how visible your website is to ChatGPT, Perplexity, and Google AI Overviews. 20 questions, 4 categories, instant results. Free GEO audit by Sprints & Sneakers.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Is Your Site AI-Ready? Free GEO Audit">
+<meta property="og:description" content="20 questions across 4 categories. Find out how visible your website is to AI search engines and get a full breakdown of where to focus.">
+<meta property="og:type" content="website">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Is Your Site AI-Ready? Free GEO Audit">
+<meta name="twitter:description" content="20 questions across 4 categories. Find out how visible your website is to AI search engines.">
+
+<!-- Favicon -->
+<link rel="icon" href="/public/favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lime:#B5FF2E; --black:#080808; --white:#F2F2ED;
+  --grey:#141414; --mid:#1E1E1E; --border:#282828;
+  --muted:#555; --light:#888;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;min-height:100%}
+
+/* TOP BAR */
+.bar{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:var(--black);
+  border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:20px}
+.bar-logo{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:3px;color:var(--lime);flex-shrink:0}
+.bar-prog{flex:1;display:flex;align-items:center;gap:12px}
+.bar-track{flex:1;height:2px;background:var(--border);position:relative;overflow:hidden}
+.bar-fill{position:absolute;top:0;left:0;height:100%;background:var(--lime);transition:width .6s cubic-bezier(.4,0,.2,1);width:0%}
+.bar-lbl{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:var(--muted);white-space:nowrap}
+.bar-lbl b{color:var(--lime);font-weight:600}
+.bar-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;color:var(--muted);flex-shrink:0}
+
+/* PAGES */
+.pg{display:none;min-height:100vh;padding-top:50px;animation:fadeUp .4s cubic-bezier(.4,0,.2,1) both}
+.pg.on{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* INTRO */
+.intro{max-width:700px;margin:0 auto;padding:80px 32px 60px}
+.eye{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:5px;color:var(--lime);
+  margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.eye::before{content:'';width:24px;height:2px;background:var(--lime);display:block}
+.intro h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,11vw,120px);
+  line-height:.88;letter-spacing:2px;margin-bottom:28px}
+.intro h1 span{color:var(--lime);display:block}
+.intro-lead{font-family:'Barlow Condensed',sans-serif;font-size:18px;line-height:1.65;
+  color:var(--light);max-width:500px;margin-bottom:14px}
+.pills{display:flex;gap:20px;margin-bottom:48px;flex-wrap:wrap;font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;letter-spacing:2px;color:var(--muted)}
+.pills span{color:var(--white)}
+
+/* SECTION PAGES */
+.sw{max-width:820px;margin:0 auto;padding:56px 32px 80px}
+.sec-meta{display:flex;align-items:baseline;gap:16px;margin-bottom:6px}
+.sec-num{font-family:'Bebas Neue',sans-serif;font-size:56px;color:var(--border);line-height:1}
+.sec-name{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px}
+.sec-div{height:1px;background:var(--border);margin-bottom:6px}
+.sec-sub{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;
+  color:var(--muted);text-transform:uppercase;margin-bottom:40px}
+
+/* QUESTIONS */
+.qb{margin-bottom:4px}
+.qhd{padding:18px 20px 14px;background:var(--grey);border-left:2px solid var(--border);transition:border-color .2s}
+.qhd.done{border-left-color:var(--lime)}
+.qn{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:6px}
+.qt{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:600;line-height:1.35;margin-bottom:3px}
+.qs{font-family:'Barlow',sans-serif;font-size:12px;color:var(--muted);line-height:1.5}
+.opts{display:flex;gap:2px;flex-wrap:wrap;padding:0 20px 2px}
+.opt{flex:1;min-width:155px;padding:13px 16px;background:var(--mid);
+  border:1px solid var(--border);cursor:pointer;transition:border-color .15s,background .15s,transform .1s;text-align:left}
+.opt:hover{border-color:#444;background:#222;transform:translateY(-1px)}
+.opt.sel{border-color:var(--lime);background:rgba(181,255,46,.06)}
+.ok{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);display:block;margin-bottom:4px}
+.ol{font-family:'Barlow Condensed',sans-serif;font-size:15px;color:var(--white);display:block;line-height:1.35}
+.opt.sel .ol{color:var(--lime)}
+
+/* NAV */
+.snav{display:flex;align-items:center;gap:14px;margin-top:36px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Bebas Neue',sans-serif;
+  font-size:17px;letter-spacing:2px;padding:14px 28px;border:none;cursor:pointer;transition:background .15s,transform .1s}
+.btn-p{background:var(--lime);color:var(--black)}
+.btn-p:hover{background:#c5ff45;transform:translate(-2px,-2px)}
+.btn-p:disabled{background:var(--border);color:var(--muted);cursor:not-allowed;transform:none}
+.btn-g{background:transparent;color:var(--muted);border:1px solid var(--border);font-size:14px;padding:14px 20px}
+.btn-g:hover{color:var(--white);border-color:#555}
+.scnt{margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;color:var(--muted)}
+.scnt b{color:var(--lime)}
+
+/* INTERSTITIAL */
+.inter{max-width:640px;margin:0 auto;padding:100px 32px 60px;text-align:center}
+.inter-ck{font-family:'Bebas Neue',sans-serif;font-size:72px;color:var(--lime);display:block;margin-bottom:6px}
+.inter-n{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:4px;color:var(--muted);margin-bottom:14px}
+.inter-t{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;margin-bottom:10px}
+.inter-pv{display:inline-block;background:var(--grey);border:1px solid var(--border);padding:18px 32px;margin:20px 0 32px}
+.inter-sn{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--lime);display:block;line-height:1}
+.inter-sl{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;color:var(--muted)}
+
+/* RESULTS */
+.res{max-width:860px;margin:0 auto;padding:56px 32px 80px}
+.res-top{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px}
+.res-gb{background:var(--grey);padding:36px 40px;display:flex;flex-direction:column;justify-content:flex-end}
+.res-ey{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:var(--lime);margin-bottom:6px}
+.res-gr{font-family:'Bebas Neue',sans-serif;font-size:108px;line-height:.9;margin-bottom:4px}
+.ga{color:var(--lime)}.gb{color:#88ee00}.gc{color:#f5c400}.gd{color:#ff8c00}.gf{color:#ff4040}
+.res-vd{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;margin-bottom:4px}
+.res-pc{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;color:var(--muted)}
+.res-pc b{color:var(--lime);font-size:16px}
+.res-sb{background:var(--mid);padding:36px 40px;display:flex;flex-direction:column;justify-content:center}
+.res-sm{font-family:'Barlow',sans-serif;font-size:15px;line-height:1.75;color:var(--light)}
+
+/* CAT BREAKDOWN */
+.sec-ttl{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;
+  margin:40px 0 16px;display:flex;align-items:center;gap:14px}
+.sec-ttl::after{content:'';flex:1;height:1px;background:var(--border)}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px}
+.cat{background:var(--grey);padding:24px 26px;position:relative;overflow:hidden}
+.cat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--border)}
+.cat.cg::before{background:var(--lime)}.cat.ca::before{background:#f5c400}.cat.co::before{background:#ff8c00}
+.cat-nm{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;color:var(--muted);margin-bottom:6px}
+.cat-sc{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;margin-bottom:14px}
+.cat-sc span{font-size:18px;color:var(--muted)}
+.cat-bt{height:3px;background:var(--border);margin-bottom:12px;overflow:hidden}
+.cat-bf{height:100%;background:var(--lime);transition:width 1s cubic-bezier(.4,0,.2,1) .3s;width:0%}
+.cat.ca .cat-bf{background:#f5c400}.cat.co .cat-bf{background:#ff8c00}
+.cat-st{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;margin-bottom:10px}
+.cat-ins{font-family:'Barlow',sans-serif;font-size:12.5px;line-height:1.6;color:var(--muted)}
+
+/* WINS */
+.win{display:grid;grid-template-columns:40px 1fr auto;gap:0;margin-bottom:2px;background:var(--grey)}
+.win-n{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--lime);
+  display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border)}
+.win-b{padding:14px 18px}
+.win-nm{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;margin-bottom:3px}
+.win-ds{font-family:'Barlow',sans-serif;font-size:12px;color:var(--muted);line-height:1.5}
+.win-tg{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;color:var(--lime);
+  border-left:1px solid var(--border);white-space:nowrap}
+
+/* LEAD FORM */
+.lw{margin-top:56px;border-top:1px solid var(--border);padding-top:48px}
+.l-ey{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:4px;color:var(--lime);margin-bottom:10px}
+.l-tt{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;margin-bottom:8px}
+.l-sb{font-family:'Barlow',sans-serif;font-size:14px;color:#666;max-width:460px;line-height:1.7;margin-bottom:36px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px}
+.fd{display:flex;flex-direction:column}
+.fd.full{grid-column:1/-1}
+.fd label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;color:var(--muted);
+  padding:10px 14px 0;background:var(--mid);text-transform:uppercase}
+.fd input,.fd select{background:var(--mid);border:none;border-bottom:1px solid var(--border);
+  color:var(--white);font-family:'Barlow',sans-serif;font-size:15px;padding:7px 14px 13px;
+  outline:none;transition:border-color .15s;-webkit-appearance:none;border-radius:0}
+.fd input:focus,.fd select:focus{border-color:var(--lime)}
+.fd input::placeholder{color:#333}
+.con{display:flex;gap:12px;align-items:flex-start;margin:18px 0 26px}
+.con input[type=checkbox]{width:14px;height:14px;min-width:14px;margin-top:3px;accent-color:var(--lime);cursor:pointer}
+.con label{font-size:12px;color:#555;line-height:1.5;cursor:pointer}
+.con a{color:var(--lime);text-decoration:none}
+.bsub{width:100%;background:var(--lime);color:var(--black);font-family:'Bebas Neue',sans-serif;
+  font-size:19px;letter-spacing:3px;padding:19px;border:none;cursor:pointer;
+  transition:background .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:10px}
+.bsub:hover{background:#c5ff45;transform:translateY(-2px)}
+.bsub:disabled{background:var(--border);color:var(--muted);cursor:not-allowed;transform:none}
+.ok-block{text-align:center;padding:48px 20px;display:none}
+.ok-block.show{display:block}
+.ok-ck{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--lime);display:block;margin-bottom:12px}
+.ok-block h3{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-bottom:8px}
+.ok-block p{font-family:'Barlow',sans-serif;font-size:13px;color:#666;max-width:340px;margin:0 auto;line-height:1.6}
+
+.dots{display:inline-flex;gap:5px}
+.dots span{width:6px;height:6px;background:var(--black);border-radius:50%;animation:b .6s infinite alternate}
+.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+@keyframes b{to{transform:translateY(-4px);opacity:.4}}
+
+@media(max-width:640px){
+  .bar{padding:0 16px;gap:14px}.bar-tag{display:none}
+  .intro,.sw,.res,.inter{padding-left:20px;padding-right:20px}
+  .res-top,.cat-grid,.fg{grid-template-columns:1fr}
+  .opts{flex-direction:column}.opt{min-width:0}
+  .intro h1{font-size:64px}.res-gr{font-size:80px}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-logo">S&S</div>
+  <div class="bar-prog" id="bprog" style="display:none">
+    <div class="bar-track"><div class="bar-fill" id="bfill"></div></div>
+    <div class="bar-lbl" id="blbl"><b>0</b> / 20 answered</div>
+  </div>
+  <div class="bar-tag">GEO AUDIT 2025</div>
+</div>
+
+<!-- INTRO -->
+<div class="pg on" id="pg-intro">
+  <div class="intro">
+    <div class="eye">Generative Engine Optimization</div>
+    <h1>Is Your Site<span>AI-Ready?</span></h1>
+    <p class="intro-lead">20 questions across 4 categories. Find out how visible your website is to ChatGPT, Perplexity, and Google AI Overviews — and get a full breakdown of where to focus.</p>
+    <div class="pills">
+      <div>⏱ <span>5 minutes</span></div>
+      <div>📊 <span>4 categories</span></div>
+      <div>✓ <span>Free results</span></div>
+      <div>→ <span>Instant breakdown</span></div>
+    </div>
+    <button class="btn btn-p" onclick="show('pg-s1')">
+      Start Audit
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="pg" id="pg-s1">
+<div class="sw">
+  <div class="sec-meta"><div class="sec-num">01</div><div class="sec-name">AI Research</div></div>
+  <div class="sec-div"></div>
+  <div class="sec-sub">How well do you understand your brand's current AI presence?</div>
+
+  <div class="qb"><div class="qhd" id="h1"><div class="qn">QUESTION 1 OF 20</div>
+    <div class="qt">Have you ever searched for your business in ChatGPT, Perplexity, or Google AI Overviews?</div>
+    <div class="qs">Not just Google — the AI-generated answer box that appears above search results.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(1,'s1',3,this)"><span class="ok">A</span><span class="ol">Yes — and I've documented what they say about us</span></button>
+      <button class="opt" onclick="ans(1,'s1',1,this)"><span class="ok">B</span><span class="ol">I've checked it a few times casually</span></button>
+      <button class="opt" onclick="ans(1,'s1',0,this)"><span class="ok">C</span><span class="ol">No, I've never looked</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h2"><div class="qn">QUESTION 2 OF 20</div>
+    <div class="qt">Do you know which competitors show up in AI answers for your key topics?</div>
+    <div class="qs">If someone asks ChatGPT about your product category — who gets mentioned?</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(2,'s1',3,this)"><span class="ok">A</span><span class="ol">Yes — I've mapped out competitors' AI presence</span></button>
+      <button class="opt" onclick="ans(2,'s1',1,this)"><span class="ok">B</span><span class="ol">I have a rough idea</span></button>
+      <button class="opt" onclick="ans(2,'s1',0,this)"><span class="ok">C</span><span class="ol">No idea who appears in AI answers</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h3"><div class="qn">QUESTION 3 OF 20</div>
+    <div class="qt">Do you know how AI currently describes your brand — and is that impression accurate?</div>
+    <div class="qs">AI pulls from the wider web. Its view of you might be outdated, incomplete, or wrong.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(3,'s1',3,this)"><span class="ok">A</span><span class="ol">I know exactly how AI sees us and have worked to influence it</span></button>
+      <button class="opt" onclick="ans(3,'s1',1,this)"><span class="ok">B</span><span class="ol">I've checked but haven't acted on what I found</span></button>
+      <button class="opt" onclick="ans(3,'s1',0,this)"><span class="ok">C</span><span class="ol">I've never checked</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h4"><div class="qn">QUESTION 4 OF 20</div>
+    <div class="qt">Do you know what content format AI engines prefer when answering questions in your category?</div>
+    <div class="qs">Lists vs paragraphs vs tables — AI has strong preferences that differ by topic.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(4,'s1',3,this)"><span class="ok">A</span><span class="ol">Yes — and my content already mirrors those formats</span></button>
+      <button class="opt" onclick="ans(4,'s1',1,this)"><span class="ok">B</span><span class="ol">I've noticed patterns but haven't adapted my content</span></button>
+      <button class="opt" onclick="ans(4,'s1',0,this)"><span class="ok">C</span><span class="ol">I haven't thought about this</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h5"><div class="qn">QUESTION 5 OF 20</div>
+    <div class="qt">Are you actively tracking how AI responses about your industry change over time?</div>
+    <div class="qs">AI search is evolving fast. What works today might not work in three months.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(5,'s1',3,this)"><span class="ok">A</span><span class="ol">Yes — I have an ongoing monitoring process</span></button>
+      <button class="opt" onclick="ans(5,'s1',1,this)"><span class="ok">B</span><span class="ol">Not systematically, but I keep an eye on it</span></button>
+      <button class="opt" onclick="ans(5,'s1',0,this)"><span class="ok">C</span><span class="ol">No, I haven't thought about this</span></button>
+    </div></div>
+
+  <div class="snav">
+    <button class="btn btn-p" id="nb-s1" onclick="inter(1)" disabled>Next Section <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    <div class="scnt">Section <b>1</b> of 4</div>
+  </div>
+</div></div>
+
+<!-- SECTION 2 -->
+<div class="pg" id="pg-s2">
+<div class="sw">
+  <div class="sec-meta"><div class="sec-num">02</div><div class="sec-name">Content Quality</div></div>
+  <div class="sec-div"></div>
+  <div class="sec-sub">Is your content built to be cited and quoted by AI engines?</div>
+
+  <div class="qb"><div class="qhd" id="h6"><div class="qn">QUESTION 6 OF 20</div>
+    <div class="qt">Does each key page on your website focus on exactly ONE user intent?</div>
+    <div class="qs">A page trying to answer multiple questions rarely gets cited by AI — or ranks well in traditional search.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(6,'s2',3,this)"><span class="ok">A</span><span class="ol">Yes — each page has a single, clear focus</span></button>
+      <button class="opt" onclick="ans(6,'s2',1,this)"><span class="ok">B</span><span class="ol">Some pages do, others cover multiple topics</span></button>
+      <button class="opt" onclick="ans(6,'s2',0,this)"><span class="ok">C</span><span class="ol">Most pages cover many things at once</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h7"><div class="qn">QUESTION 7 OF 20</div>
+    <div class="qt">Does your content use related terms and concepts — not just repeated keywords?</div>
+    <div class="qs">AI evaluates topical depth. A page about 'SEO' should also mention crawling, indexing, SERP, etc.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(7,'s2',3,this)"><span class="ok">A</span><span class="ol">Yes — we cover topics comprehensively with rich context</span></button>
+      <button class="opt" onclick="ans(7,'s2',1,this)"><span class="ok">B</span><span class="ol">Somewhat — we could go deeper on most pages</span></button>
+      <button class="opt" onclick="ans(7,'s2',0,this)"><span class="ok">C</span><span class="ol">We mostly repeat our main keywords</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h8"><div class="qn">QUESTION 8 OF 20</div>
+    <div class="qt">Are your key pages regularly fact-checked with cited, verifiable sources?</div>
+    <div class="qs">AI engines heavily favour content that backs up claims with traceable data and links.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(8,'s2',3,this)"><span class="ok">A</span><span class="ol">Yes — we link to sources and keep data fresh</span></button>
+      <button class="opt" onclick="ans(8,'s2',1,this)"><span class="ok">B</span><span class="ol">Occasionally, but not consistently</span></button>
+      <button class="opt" onclick="ans(8,'s2',0,this)"><span class="ok">C</span><span class="ol">We rarely cite sources</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h9"><div class="qn">QUESTION 9 OF 20</div>
+    <div class="qt">How would you honestly rate the reading quality of your website copy?</div>
+    <div class="qs">Clear, engaging, jargon-free writing gets cited more by AI systems.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(9,'s2',3,this)"><span class="ok">A</span><span class="ol">Strong — clear, engaging, easy to scan</span></button>
+      <button class="opt" onclick="ans(9,'s2',1,this)"><span class="ok">B</span><span class="ol">Decent, but could be sharper and less dense</span></button>
+      <button class="opt" onclick="ans(9,'s2',0,this)"><span class="ok">C</span><span class="ol">Dense, formal, or full of industry jargon</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h10"><div class="qn">QUESTION 10 OF 20</div>
+    <div class="qt">Do your pages clearly explain key entities — your brand, product, and category?</div>
+    <div class="qs">Don't assume AI knows who you are. Every important concept should be introduced and contextualised.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(10,'s2',3,this)"><span class="ok">A</span><span class="ol">Yes — we contextualise all key concepts and entities</span></button>
+      <button class="opt" onclick="ans(10,'s2',1,this)"><span class="ok">B</span><span class="ol">On some pages, not all</span></button>
+      <button class="opt" onclick="ans(10,'s2',0,this)"><span class="ok">C</span><span class="ol">We assume visitors already know the context</span></button>
+    </div></div>
+
+  <div class="snav">
+    <button class="btn btn-g" onclick="show('pg-s1')">← Back</button>
+    <button class="btn btn-p" id="nb-s2" onclick="inter(2)" disabled>Next Section <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    <div class="scnt">Section <b>2</b> of 4</div>
+  </div>
+</div></div>
+
+<!-- SECTION 3 -->
+<div class="pg" id="pg-s3">
+<div class="sw">
+  <div class="sec-meta"><div class="sec-num">03</div><div class="sec-name">Structure & Clarity</div></div>
+  <div class="sec-div"></div>
+  <div class="sec-sub">Is your content formatted the way AI wants to read and quote it?</div>
+
+  <div class="qb"><div class="qhd" id="h11"><div class="qn">QUESTION 11 OF 20</div>
+    <div class="qt">Do your pages open with a single, clear sentence about what the page is?</div>
+    <div class="qs">AI uses the intro to judge relevance. Vague warm-up paragraphs result in lower citation rates.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(11,'s3',3,this)"><span class="ok">A</span><span class="ol">Yes — every page has a sharp, direct opening sentence</span></button>
+      <button class="opt" onclick="ans(11,'s3',1,this)"><span class="ok">B</span><span class="ol">Most pages do</span></button>
+      <button class="opt" onclick="ans(11,'s3',0,this)"><span class="ok">C</span><span class="ol">We often build up to the point slowly</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h12"><div class="qn">QUESTION 12 OF 20</div>
+    <div class="qt">Are your H1–H3 headers written the way users actually phrase their questions?</div>
+    <div class="qs">"Our Services" tells AI nothing. "What does X include?" tells AI exactly what to expect.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(12,'s3',3,this)"><span class="ok">A</span><span class="ol">Yes — our headers are question-oriented and descriptive</span></button>
+      <button class="opt" onclick="ans(12,'s3',1,this)"><span class="ok">B</span><span class="ol">Some are, some are generic</span></button>
+      <button class="opt" onclick="ans(12,'s3',0,this)"><span class="ok">C</span><span class="ol">Most headers are generic or brand-focused</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h13"><div class="qn">QUESTION 13 OF 20</div>
+    <div class="qt">Do you use bullet points, numbered lists, or tables to structure key information?</div>
+    <div class="qs">AI loves to quote formatted content. Walls of text almost never get picked up.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(13,'s3',3,this)"><span class="ok">A</span><span class="ol">Yes — structured formatting is used throughout our site</span></button>
+      <button class="opt" onclick="ans(13,'s3',1,this)"><span class="ok">B</span><span class="ol">Sometimes, mostly on blog posts</span></button>
+      <button class="opt" onclick="ans(13,'s3',0,this)"><span class="ok">C</span><span class="ol">Mostly long paragraphs of text</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h14"><div class="qn">QUESTION 14 OF 20</div>
+    <div class="qt">Do your key pages give the direct answer at the top — before expanding?</div>
+    <div class="qs">Bottom-loaded content frustrates both users and AI. Lead with the answer, then expand.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(14,'s3',3,this)"><span class="ok">A</span><span class="ol">Yes — we lead with the answer, then provide context</span></button>
+      <button class="opt" onclick="ans(14,'s3',1,this)"><span class="ok">B</span><span class="ol">Sometimes, depending on the page</span></button>
+      <button class="opt" onclick="ans(14,'s3',0,this)"><span class="ok">C</span><span class="ol">We tend to build up context before the answer</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h15"><div class="qn">QUESTION 15 OF 20</div>
+    <div class="qt">Do all your images have accurate, descriptive alt text?</div>
+    <div class="qs">Alt text makes your visual content legible to AI crawlers and improves accessibility for all users.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(15,'s3',3,this)"><span class="ok">A</span><span class="ol">Yes — all images have quality descriptive alt text</span></button>
+      <button class="opt" onclick="ans(15,'s3',1,this)"><span class="ok">B</span><span class="ol">Some do, many are still empty or generic</span></button>
+      <button class="opt" onclick="ans(15,'s3',0,this)"><span class="ok">C</span><span class="ol">We haven't paid attention to alt text</span></button>
+    </div></div>
+
+  <div class="snav">
+    <button class="btn btn-g" onclick="show('pg-s2')">← Back</button>
+    <button class="btn btn-p" id="nb-s3" onclick="inter(3)" disabled>Next Section <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    <div class="scnt">Section <b>3</b> of 4</div>
+  </div>
+</div></div>
+
+<!-- SECTION 4 -->
+<div class="pg" id="pg-s4">
+<div class="sw">
+  <div class="sec-meta"><div class="sec-num">04</div><div class="sec-name">Authority & Technical</div></div>
+  <div class="sec-div"></div>
+  <div class="sec-sub">Are the technical foundations in place for AI engines to find and trust you?</div>
+
+  <div class="qb"><div class="qhd" id="h16"><div class="qn">QUESTION 16 OF 20</div>
+    <div class="qt">Have you checked whether AI bots like GPTBot are allowed in your robots.txt?</div>
+    <div class="qs">If you're blocking AI crawlers — even unintentionally — you're completely invisible to AI search.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(16,'s4',3,this)"><span class="ok">A</span><span class="ol">Yes — AI bots are explicitly allowed</span></button>
+      <button class="opt" onclick="ans(16,'s4',1,this)"><span class="ok">B</span><span class="ol">I'm not sure — I haven't checked</span></button>
+      <button class="opt" onclick="ans(16,'s4',0,this)"><span class="ok">C</span><span class="ol">I think we might be blocking some AI crawlers</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h17"><div class="qn">QUESTION 17 OF 20</div>
+    <div class="qt">Does your website have structured data (JSON-LD schema) implemented?</div>
+    <div class="qs">Schema markup tells AI exactly what your page is — article, FAQ, product, local business, etc.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(17,'s4',3,this)"><span class="ok">A</span><span class="ol">Yes — comprehensive schema markup on key pages</span></button>
+      <button class="opt" onclick="ans(17,'s4',1,this)"><span class="ok">B</span><span class="ol">Basic implementation only</span></button>
+      <button class="opt" onclick="ans(17,'s4',0,this)"><span class="ok">C</span><span class="ol">No structured data at all</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h18"><div class="qn">QUESTION 18 OF 20</div>
+    <div class="qt">Does your site score green on Google PageSpeed for mobile?</div>
+    <div class="qs">Slow or broken sites get deprioritised by AI crawlers before they even read your content.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(18,'s4',3,this)"><span class="ok">A</span><span class="ol">Yes — green on both mobile and desktop</span></button>
+      <button class="opt" onclick="ans(18,'s4',1,this)"><span class="ok">B</span><span class="ol">Orange / needs improvement</span></button>
+      <button class="opt" onclick="ans(18,'s4',0,this)"><span class="ok">C</span><span class="ol">Red / I haven't checked</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h19"><div class="qn">QUESTION 19 OF 20</div>
+    <div class="qt">Does your brand have consistent citations and mentions outside your own website?</div>
+    <div class="qs">AI pulls authority from the wider web — press, partnerships, directories, social mentions all count.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(19,'s4',3,this)"><span class="ok">A</span><span class="ol">Yes — strong backlink and external mentions profile</span></button>
+      <button class="opt" onclick="ans(19,'s4',1,this)"><span class="ok">B</span><span class="ol">Some presence, but it could be stronger</span></button>
+      <button class="opt" onclick="ans(19,'s4',0,this)"><span class="ok">C</span><span class="ol">Mostly self-published, few external mentions</span></button>
+    </div></div>
+
+  <div class="qb"><div class="qhd" id="h20"><div class="qn">QUESTION 20 OF 20</div>
+    <div class="qt">Are there crawling or indexing errors in your Google Search Console?</div>
+    <div class="qs">If Google can't crawl it, neither can AI. Unresolved errors mean invisible pages.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="ans(20,'s4',3,this)"><span class="ok">A</span><span class="ol">No errors — we monitor it regularly</span></button>
+      <button class="opt" onclick="ans(20,'s4',1,this)"><span class="ok">B</span><span class="ol">There are some errors I haven't fixed yet</span></button>
+      <button class="opt" onclick="ans(20,'s4',0,this)"><span class="ok">C</span><span class="ol">Haven't set up or checked Search Console</span></button>
+    </div></div>
+
+  <div class="snav">
+    <button class="btn btn-g" onclick="show('pg-s3')">← Back</button>
+    <button class="btn btn-p" id="nb-s4" onclick="mkResults()" disabled>See My Results <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    <div class="scnt">Section <b>4</b> of 4</div>
+  </div>
+</div></div>
+
+<!-- RESULTS PAGE -->
+<div class="pg" id="pg-res">
+<div class="res">
+  <div class="res-top">
+    <div class="res-gb">
+      <div class="res-ey">YOUR GEO SCORE</div>
+      <div class="res-gr" id="rg">—</div>
+      <div class="res-vd" id="rv">—</div>
+      <div class="res-pc"><b id="rp">0%</b> overall score</div>
+    </div>
+    <div class="res-sb"><div class="res-sm" id="rsm"></div></div>
+  </div>
+
+  <div class="sec-ttl">Breakdown Per Category</div>
+  <div class="cat-grid" id="cg"></div>
+
+  <div class="sec-ttl">Your Top Quick Wins</div>
+  <div id="wl"></div>
+
+  <div class="lw">
+    <div class="l-ey">FREE — NO STRINGS ATTACHED</div>
+    <div class="l-tt">Get Your Full GEO Action Plan</div>
+    <div class="l-sb">We'll review your score and send a personalised 90-day roadmap — what to fix, in what order, with the tools to use. One of our GEO specialists will reach out within 1 business day.</div>
+    <div id="fbody">
+      <div class="fg">
+        <div class="fd"><label>First Name *</label><input type="text" id="fn" placeholder="Emma"></div>
+        <div class="fd"><label>Last Name *</label><input type="text" id="ln" placeholder="de Vries"></div>
+        <div class="fd"><label>Work Email *</label><input type="email" id="em" placeholder="emma@bedrijf.nl"></div>
+        <div class="fd"><label>Company *</label><input type="text" id="co" placeholder="Bedrijfsnaam"></div>
+      </div>
+      <div class="fg">
+        <div class="fd full"><label>Website URL</label><input type="url" id="wu" placeholder="https://jouwwebsite.nl"></div>
+        <div class="fd full"><label>Company Size</label>
+          <select id="cs"><option value="">Select...</option><option value="1-10">1–10</option><option value="11-50">11–50</option><option value="51-200">51–200</option><option value="200+">200+</option></select>
+        </div>
+      </div>
+      <div class="con">
+        <input type="checkbox" id="ck">
+        <label for="ck">Ik ga akkoord dat Sprints & Sneakers mijn gegevens opslaat en contact met mij opneemt. <a href="#">Privacybeleid</a>.</label>
+      </div>
+      <button class="bsub" id="bsub" onclick="subLead()">Send Me My Action Plan →</button>
+    </div>
+    <div class="ok-block" id="fsuc">
+      <span class="ok-ck">✓</span>
+      <h3>You're in the system.</h3>
+      <p>We'll review your GEO results and reach out within 1 business day with your full personalised action plan.</p>
+    </div>
+  </div>
+</div></div>
+
+<script>
+const sc={},sa={s1:0,s2:0,s3:0,s4:0};
+const SQ={s1:[1,5],s2:[6,10],s3:[11,15],s4:[16,20]};
+const MX={s1:15,s2:15,s3:15,s4:15};
+const SL={s1:'AI Research',s2:'Content Quality',s3:'Structure & Clarity',s4:'Authority & Technical'};
+
+function show(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  const t=document.getElementById(id);
+  t.classList.add('on');
+  t.style.animation='none';
+  requestAnimationFrame(()=>{t.style.animation='';});
+  window.scrollTo(0,0);
+  if(id!=='pg-intro') document.getElementById('bprog').style.display='flex';
+  updBar();
+}
+
+function inter(n){
+  const sec='s'+n;
+  const [a,b]=SQ[sec];
+  let s=0; for(let i=a;i<=b;i++) s+=(sc[i]||0);
+  const p=Math.round((s/MX[sec])*100);
+  const nxt=n+1;
+  const nms={1:'02',2:'03',3:'04'};
+  const id='pg-i'+n;
+  const ex=document.getElementById(id); if(ex) ex.remove();
+  const h=`<div class="pg" id="${id}">
+    <div class="inter">
+      <span class="inter-ck">✓</span>
+      <div class="inter-n">SECTION ${n} OF 4 COMPLETE</div>
+      <div class="inter-t">${SL[sec].toUpperCase()}<br>DONE.</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:17px;color:var(--light);margin-bottom:4px">Your score for this section:</div>
+      <div class="inter-pv"><span class="inter-sn">${p}%</span><span class="inter-sl">${SL[sec]}</span></div>
+      <br>
+      <button class="btn btn-p" onclick="show('pg-s${nxt}')">
+        ${nms[n]} — ${SL['s'+nxt]} <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div></div>`;
+  document.body.insertAdjacentHTML('beforeend',h);
+  show(id);
+}
+
+function ans(qId,sec,score,el){
+  sc[qId]=score;
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('h'+qId).classList.add('done');
+  const [a,b]=SQ[sec];
+  let cnt=0; for(let i=a;i<=b;i++) if(sc[i]!==undefined) cnt++;
+  sa[sec]=cnt;
+  const bmap={s1:'nb-s1',s2:'nb-s2',s3:'nb-s3',s4:'nb-s4'};
+  if(cnt===5){const b=document.getElementById(bmap[sec]);if(b)b.disabled=false;}
+  updBar();
+}
+
+function updBar(){
+  const t=Object.keys(sc).length;
+  const p=(t/20)*100;
+  document.getElementById('bfill').style.width=p+'%';
+  document.getElementById('blbl').innerHTML=`<b>${t}</b> / 20 answered`;
+}
+
+function mkResults(){
+  const cs={};
+  ['s1','s2','s3','s4'].forEach(s=>{
+    const [a,b]=SQ[s];let sum=0;
+    for(let i=a;i<=b;i++) sum+=(sc[i]||0);
+    cs[s]=sum;
+  });
+  const tot=Object.values(cs).reduce((a,b)=>a+b,0);
+  const p=Math.round((tot/60)*100);
+
+  let gr,gc,vd,sm;
+  if(p>=80){gr='A';gc='ga';vd='AI LEADER';sm='Your website is well-optimised for AI search. You\'re ahead of most competitors. Focus on maintaining your position and iterating as AI search evolves.'}
+  else if(p>=65){gr='B';gc='gb';vd='SOLID FOUNDATION';sm='You\'ve got a strong base — but clear gaps are keeping you out of AI-generated answers. A focused 4–6 week sprint on your weakest category can move the needle significantly.'}
+  else if(p>=45){gr='C';gc='gc';vd='WORK TO DO';sm='Your site has potential, but is missing key signals that AI engines rely on to choose sources. Prioritise content structure and technical health for the fastest gains.'}
+  else if(p>=25){gr='D';gc='gd';vd='BEHIND THE CURVE';sm='Your website is largely invisible to AI search right now. Start with high-impact changes in your two weakest categories — the improvement will be immediate.'}
+  else{gr='F';gc='gf';vd='NOT YET OPTIMISED';sm='Your website isn\'t optimised for AI search at all — but that means every change you make will have immediate impact. Start with the quick wins below.'}
+
+  document.getElementById('rg').textContent=gr;
+  document.getElementById('rg').className='res-gr '+gc;
+  document.getElementById('rv').textContent=vd;
+  document.getElementById('rp').textContent=p+'%';
+  document.getElementById('rsm').textContent=sm;
+
+  const ins={
+    s1:{g:'You understand your AI landscape well. Keep monitoring as AI search evolves.',
+       a:'You have some awareness but no systematic approach. A structured AI research process will unlock significant gains.',
+       r:'You\'re operating blind. Before fixing anything else, understand how AI currently sees your brand and category.'},
+    s2:{g:'Your content is well-positioned for AI citation. Keep content fresh with current data and sources.',
+       a:'Content gaps are costing you citations. Focus on single-intent pages, richer semantics, and better source citations.',
+       r:'Your content isn\'t built for AI. Restructuring your top 5 pages around clear intent and verifiable data is the priority.'},
+    s3:{g:'Excellent structure — AI can easily parse and quote your content.',
+       a:'Your formatting is holding you back. Converting summaries to lists and sharpening headers will have immediate impact.',
+       r:'AI can\'t easily quote your content because of how it\'s structured. Start with headers, bullet points, and answer-first layouts.'},
+    s4:{g:'Strong technical foundation. Your site is accessible to AI crawlers and signals authority well.',
+       a:'Technical gaps are limiting visibility. robots.txt, schema markup, and page speed are quick wins to prioritise.',
+       r:'Critical technical issues may be blocking AI access entirely. GPTBot access and schema markup are urgent.'}
+  };
+
+  const cg=document.getElementById('cg'); cg.innerHTML='';
+  const sorted=[];
+  ['s1','s2','s3','s4'].forEach(s=>{
+    const sp=Math.round((cs[s]/MX[s])*100);
+    let cc,st,ik;
+    if(sp>=70){cc='cg';st='✓ Strong';ik='g';}
+    else if(sp>=40){cc='ca';st='△ Needs Work';ik='a';}
+    else{cc='co';st='✗ Priority Fix';ik='r';}
+    const stc=sp>=70?'var(--lime)':sp>=40?'#f5c400':'#ff8c00';
+    const card=document.createElement('div');
+    card.className='cat '+cc;
+    card.innerHTML=`<div class="cat-nm">${SL[s]}</div>
+      <div class="cat-sc">${sp}%<span> / 100</span></div>
+      <div class="cat-bt"><div class="cat-bf" data-t="${sp}" style="width:0%"></div></div>
+      <div class="cat-st" style="color:${stc}">${st}</div>
+      <div class="cat-ins">${ins[s][ik]}</div>`;
+    cg.appendChild(card);
+    sorted.push({s,sp});
+  });
+  setTimeout(()=>{document.querySelectorAll('.cat-bf').forEach(e=>{e.style.width=e.dataset.t+'%';});},200);
+  sorted.sort((a,b)=>a.sp-b.sp);
+
+  const AW={
+    s1:[{n:'Map your AI presence today',d:'Search your top 10 queries in ChatGPT, Gemini, and Perplexity. Screenshot what shows up and what doesn\'t. This 30-minute exercise changes everything.',t:'Quick win'},
+        {n:'Identify your AI competitors',d:'Find the 5 brands appearing in AI answers for your category. What content do they have that you don\'t?',t:'Research'}],
+    s2:[{n:'Rewrite top 5 pages around one intent',d:'Each page should answer one question completely. Split any page that tries to cover multiple topics at once.',t:'High impact'},
+        {n:'Add citations to every key claim',d:'Every stat and quote needs a source link. AI favours content it can independently verify.',t:'Quick win'}],
+    s3:[{n:'Convert 3 pages from paragraphs to lists',d:'Pick your highest-traffic pages. Replace summary paragraphs with bullet points or numbered lists — AI loves to quote structured content.',t:'Low effort'},
+        {n:'Rewrite headers to answer questions',d:'Go through your H2s and H3s. If they\'re generic labels, rewrite them as the question they answer.',t:'Quick win'}],
+    s4:[{n:'Allow GPTBot in robots.txt',d:'Add "Allow: /GPTBot" to your robots.txt today. Blocking AI crawlers means zero chance of AI citations — even if your content is excellent.',t:'Urgent'},
+        {n:'Implement FAQ schema on key pages',d:'Add FAQ JSON-LD structured data to your top 5 pages. This directly increases eligibility for AI Overviews and featured snippets.',t:'High impact'}]
+  };
+
+  const wl=document.getElementById('wl'); wl.innerHTML='';
+  let wc=0;
+  sorted.forEach(({s})=>{
+    if(wc>=4)return;
+    AW[s].forEach(w=>{
+      if(wc>=4)return;
+      const el=document.createElement('div');
+      el.className='win';
+      el.innerHTML=`<div class="win-n">${String(wc+1).padStart(2,'0')}</div>
+        <div class="win-b"><div class="win-nm">${w.n}</div><div class="win-ds">${w.d}</div></div>
+        <div class="win-tg">${w.t}</div>`;
+      wl.appendChild(el); wc++;
+    });
+  });
+
+  document.getElementById('bfill').style.width='100%';
+  document.getElementById('blbl').innerHTML='<b>20</b> / 20 answered';
+  show('pg-res');
+}
+
+function subLead(){
+  const fn=document.getElementById('fn').value.trim();
+  const ln=document.getElementById('ln').value.trim();
+  const em=document.getElementById('em').value.trim();
+  const co=document.getElementById('co').value.trim();
+  const ok=document.getElementById('ck').checked;
+  ['fn','ln','em','co'].forEach(id=>{
+    document.getElementById(id).style.borderBottomColor=document.getElementById(id).value.trim()?'':'#ff4444';
+  });
+  if(!fn||!ln||!em||!co||!ok)return;
+  const b=document.getElementById('bsub');
+  b.disabled=true;
+  b.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
+
+  const cs={};
+  ['s1','s2','s3','s4'].forEach(s=>{const [a,z]=SQ[s];let sum=0;for(let i=a;i<=z;i++)sum+=(sc[i]||0);cs[s]=sum;});
+  const tot=Object.values(cs).reduce((a,b)=>a+b,0);
+  const p=Math.round((tot/60)*100);
+
+  // TODO: replace PORTAL_ID + FORM_GUID
+  const payload={
+    fields:[
+      {name:'firstname',value:fn},{name:'lastname',value:ln},
+      {name:'email',value:em},{name:'company',value:co},
+      {name:'website',value:document.getElementById('wu').value.trim()},
+      {name:'numemployees',value:document.getElementById('cs').value},
+      {name:'geo_total_score',value:p},
+      {name:'geo_ai_research',value:Math.round((cs.s1/15)*100)},
+      {name:'geo_content_quality',value:Math.round((cs.s2/15)*100)},
+      {name:'geo_structure',value:Math.round((cs.s3/15)*100)},
+      {name:'geo_technical',value:Math.round((cs.s4/15)*100)},
+    ],
+    context:{pageUri:window.location.href,pageName:'GEO Audit Quiz — S&S'}
+  };
+  fetch('/api/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Submission failed');
+    document.getElementById('fbody').style.display='none';
+    document.getElementById('fsuc').classList.add('show');
+  })
+  .catch(err => {
+    console.error('Submit error:', err);
+    b.disabled = false;
+    b.innerHTML = 'Error — Try Again →';
+    setTimeout(() => { b.innerHTML = 'Send Me My Action Plan →'; }, 3000);
+  });
+}
+</script>
+</body>
+</html>
